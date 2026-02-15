@@ -6,6 +6,7 @@ use App\Http\Requests\JobOfferRequest;
 use App\Models\JobOffer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -117,11 +118,13 @@ class JobOfferController extends Controller
 
     private function filteredOffersQuery(string $search, string $category, string $location)
     {
+        $searchOperator = $this->searchOperator();
+
         return JobOffer::query()
-            ->when($search !== '', function ($query) use ($search) {
-                $query->where(function ($subQuery) use ($search) {
-                    $subQuery->where('title', 'ILIKE', "%{$search}%")
-                        ->orWhere('description', 'ILIKE', "%{$search}%");
+            ->when($search !== '', function ($query) use ($search, $searchOperator) {
+                $query->where(function ($subQuery) use ($search, $searchOperator) {
+                    $subQuery->where('title', $searchOperator, "%{$search}%")
+                        ->orWhere('description', $searchOperator, "%{$search}%");
                 });
             })
             ->when($category !== '', function ($query) use ($category) {
@@ -155,5 +158,10 @@ class JobOfferController extends Controller
                 ->values()
                 ->all(),
         ];
+    }
+
+    private function searchOperator(): string
+    {
+        return DB::connection()->getDriverName() === 'pgsql' ? 'ILIKE' : 'LIKE';
     }
 }

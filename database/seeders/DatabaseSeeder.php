@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\JobOffer;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,6 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        JobOffer::query()->delete();
+
+        $this->call(JobOfferSeeder::class);
+
         // User::factory(10)->create();
 
         User::factory()->create([
