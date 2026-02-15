@@ -117,11 +117,20 @@ export default function BrowseJobOffers({
                                 onChange={(event) =>
                                     setCategory(event.target.value)
                                 }
-                                className="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs"
+                                className="h-9 rounded-md border border-input bg-background px-3 text-sm text-foreground shadow-xs"
                             >
-                                <option value="">Wszystkie kategorie</option>
+                                <option
+                                    value=""
+                                    className="bg-background text-foreground"
+                                >
+                                    Wszystkie kategorie
+                                </option>
                                 {categories.map((item) => (
-                                    <option key={item} value={item}>
+                                    <option
+                                        key={item}
+                                        value={item}
+                                        className="bg-background text-foreground"
+                                    >
                                         {item}
                                     </option>
                                 ))}
@@ -132,11 +141,20 @@ export default function BrowseJobOffers({
                                 onChange={(event) =>
                                     setLocation(event.target.value)
                                 }
-                                className="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs"
+                                className="h-9 rounded-md border border-input bg-background px-3 text-sm text-foreground shadow-xs"
                             >
-                                <option value="">Wszystkie lokalizacje</option>
+                                <option
+                                    value=""
+                                    className="bg-background text-foreground"
+                                >
+                                    Wszystkie lokalizacje
+                                </option>
                                 {locations.map((item) => (
-                                    <option key={item} value={item}>
+                                    <option
+                                        key={item}
+                                        value={item}
+                                        className="bg-background text-foreground"
+                                    >
                                         {item}
                                     </option>
                                 ))}
