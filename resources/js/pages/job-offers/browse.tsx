@@ -10,6 +10,13 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import { dashboard, home, login } from '@/routes';
 
 type JobOffer = {
@@ -112,53 +119,53 @@ export default function BrowseJobOffers({
                                 placeholder="Szukaj po tytule i treści"
                             />
 
-                            <select
-                                value={category}
-                                onChange={(event) =>
-                                    setCategory(event.target.value)
+                            <Select
+                                value={category || 'all-categories'}
+                                onValueChange={(value) =>
+                                    setCategory(
+                                        value === 'all-categories'
+                                            ? ''
+                                            : value,
+                                    )
                                 }
-                                className="h-9 rounded-md border border-input bg-background px-3 text-sm text-foreground shadow-xs"
                             >
-                                <option
-                                    value=""
-                                    className="bg-background text-foreground"
-                                >
-                                    Wszystkie kategorie
-                                </option>
-                                {categories.map((item) => (
-                                    <option
-                                        key={item}
-                                        value={item}
-                                        className="bg-background text-foreground"
-                                    >
-                                        {item}
-                                    </option>
-                                ))}
-                            </select>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Wszystkie kategorie" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all-categories">
+                                        Wszystkie kategorie
+                                    </SelectItem>
+                                    {categories.map((item) => (
+                                        <SelectItem key={item} value={item}>
+                                            {item}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
 
-                            <select
-                                value={location}
-                                onChange={(event) =>
-                                    setLocation(event.target.value)
+                            <Select
+                                value={location || 'all-locations'}
+                                onValueChange={(value) =>
+                                    setLocation(
+                                        value === 'all-locations' ? '' : value,
+                                    )
                                 }
-                                className="h-9 rounded-md border border-input bg-background px-3 text-sm text-foreground shadow-xs"
                             >
-                                <option
-                                    value=""
-                                    className="bg-background text-foreground"
-                                >
-                                    Wszystkie lokalizacje
-                                </option>
-                                {locations.map((item) => (
-                                    <option
-                                        key={item}
-                                        value={item}
-                                        className="bg-background text-foreground"
-                                    >
-                                        {item}
-                                    </option>
-                                ))}
-                            </select>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Wszystkie lokalizacje" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all-locations">
+                                        Wszystkie lokalizacje
+                                    </SelectItem>
+                                    {locations.map((item) => (
+                                        <SelectItem key={item} value={item}>
+                                            {item}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
 
                             <Button
                                 type="submit"
